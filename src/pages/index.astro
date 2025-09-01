@@ -1,17 +1,31 @@
 ---
-import PlotComponent from "../components/PlotFigure.astro";
-import * as Plot from "@observablehq/plot";
-
-// Ici on définit les "options" Plot
-const penguinsOptions = {
-  marks: [
-    Plot.rectY(
-      { length: 10000 },                          // données simulées (comme ton exemple)
-      Plot.binX({ y: "count" }, { x: Math.random }) // histogramme
-    )
-  ]
-};
+import PlotFigure from "../components/PlotFigure.astro";
+import penguins from "../assets/penguin.json";
+import * as Plot from "@observablehq/plot"; 
 ---
 
-<h1>Exemple Penguins (version Plot/Astro)</h1>
-<PlotComponent options={penguinsOptions} />
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Astro tp1</title>
+  </head>
+  <body>
+    <h1>Astro tp1</h1>
+
+    <PlotFigure
+      options={{
+        marks: [
+          Plot.dot(penguins, { x: "culmen_length_mm", y: "culmen_depth_mm", stroke: "species" })
+        ]
+      }}
+    />
+
+    <PlotFigure
+      options={{
+        marks: [
+          Plot.rectY({ length: 10000 }, Plot.binX({ y: "count" }, { x: Math.random }))
+        ]
+      }}
+    />
+  </body>
+</html>
